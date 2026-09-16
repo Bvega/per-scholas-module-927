@@ -1,0 +1,4 @@
+### 📖 Installing Python
+* **Definition/Overview:** Python is a versatile, widely-used programming language for a broad range of applications, requiring initial setup and environment configuration.
+* **Key Details:** Installation steps vary by OS (Windows requires checking "Add Python to PATH", macOS uses a package installer, and Linux often utilizes package managers like `apt-get`). Verification is done via the `python --version` command.
+* **Practical Application:** Setting up a local development environment and installing code editors/IDEs (such as VSCode, PyCharm, or IDLE) to write and execute Python scripts.

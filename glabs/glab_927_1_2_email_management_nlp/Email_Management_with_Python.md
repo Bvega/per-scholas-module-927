@@ -1,0 +1,4 @@
+### 📖 Text Processing for Email Management (Stemming & Lemmatization)
+* **Definition/Overview:** Text processing techniques such as stemming and lemmatization are applied using Python's NLTK library to streamline, categorize, and analyze large volumes of business emails effectively.
+* **Key Details:** Stemming reduces words to their root forms using tools like `PorterStemmer` (e.g., parsing tokens from sample email content), whereas lemmatization converts words to their dictionary or base forms using `WordNetLemmatizer` for standardized and consistent text data.
+* **Practical Application:** Automating the standardization of business email content to extract common themes, manage deliverables, and improve analysis in automated communication workflows.
