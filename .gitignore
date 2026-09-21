@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+.env.*
+!.env.example
+*.log
+
+# Saved browser page dumps
+*.html
+*_files/
