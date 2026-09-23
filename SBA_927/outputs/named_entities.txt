@@ -1,0 +1,37 @@
+Record 1
+No named entities found.
+
+Record 2
+Entity: Robot | Category: PERSON
+Entity: Detective Del Spooner | Category: PERSON
+
+Record 3
+Entity: Sonny | Category: PERSON
+
+Record 4
+No named entities found.
+
+Record 5
+Entity: Virtual Interactive Kinetic | Category: ORGANIZATION
+
+Record 6
+No named entities found.
+
+Record 7
+Entity: Detective | Category: PERSON
+Entity: Program | Category: PERSON
+
+Record 8
+Entity: Susan Calvin | Category: PERSON
+
+Record 9
+Entity: Robot | Category: PERSON
+
+Record 10
+No named entities found.
+
+Record 11
+Entity: Sonny | Category: GPE
+
+Record 12
+Entity: Robot | Category: PERSON
