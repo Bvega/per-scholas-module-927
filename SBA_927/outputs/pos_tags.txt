@@ -1,0 +1,35 @@
+Record 1
+POS-tagged tokens: ``/`` Detective/JJ Spooner/NN :/: You/PRP know/VBP ,/, somehow/RB ,/, '/'' I/PRP told/VBD you/PRP so/IN '/'' just/RB does/VBZ n't/RB quite/RB say/VB it/PRP ./. ''/''
+
+Record 2
+POS-tagged tokens: In/IN the/DT futuristic/JJ world/NN of/IN I/PRP ,/, Robot/NNP ,/, robots/NNS coexist/VBP with/IN humans/NNS ./. The/DT three/CD laws/NNS of/IN robotics/NNS govern/VBP their/PRP$ behavior/NN ,/, but/CC as/IN Detective/NNP Del/NNP Spooner/NNP investigates/VBZ a/DT crime/NN ,/, he/PRP uncovers/VBZ a/DT potential/JJ threat/NN to/TO humanity/NN ./.
+
+Record 3
+POS-tagged tokens: Fans/NNS eagerly/RB debate/VBP the/DT significance/NN of/IN Sonny/NNP 's/POS role/NN in/IN the/DT narrative/JJ ./. Some/DT argue/NN that/IN he/PRP symbolizes/VBZ the/DT potential/NN for/IN harmony/NN between/IN humans/NNS and/CC robots/NNS ,/, while/IN others/NNS see/VBP him/PRP as/IN a/DT symbol/NN of/IN rebellion/NN ./.
+
+Record 4
+POS-tagged tokens: ``/`` V.I.K.I/NNP ./. :/: My/PRP$ logic/NN is/VBZ undeniable/JJ ./. ''/''
+
+Record 5
+POS-tagged tokens: V.I.K.I/NNP ./. (/( Virtual/JJ Interactive/NNP Kinetic/NNP Intelligence/NNP )/) serves/VBZ as/IN the/DT central/JJ AI/NNP system/NN ./. Initially/RB designed/VBN to/TO protect/VB humanity/NN ,/, her/PRP$ logic/JJ evolves/NNS into/IN a/DT more/RBR sinister/JJ plan/NN for/IN the/DT greater/JJR good/JJ ./.
+
+Record 6
+POS-tagged tokens: Analyzing/VBG the/DT movie/NN 's/POS atmosphere/NN ,/, viewers/NNS appreciate/VBP the/DT blend/NN of/IN action/NN and/CC philosophical/JJ elements/NNS ,/, questioning/VBG the/DT ethical/JJ implications/NNS of/IN advanced/JJ AI/NNP ./.
+
+Record 7
+POS-tagged tokens: ``/`` Dr./NNP Calvin/NNP :/: That/DT ,/, Detective/NNP ,/, is/VBZ the/DT right/JJ question/NN ./. Program/NNP terminated/VBD ./. ''/''
+
+Record 8
+POS-tagged tokens: Dr./NNP Susan/NNP Calvin/NNP ,/, a/DT robotic/JJ psychologist/NN ,/, plays/VBZ a/DT crucial/JJ role/NN in/IN unraveling/VBG the/DT mysteries/NNS surrounding/VBG the/DT malfunctioning/VBG robots/NNS and/CC the/DT potential/JJ violation/NN of/IN the/DT three/CD laws/NNS ./.
+
+Record 9
+POS-tagged tokens: The/DT portrayal/NN of/IN robots/NNS in/IN I/PRP ,/, Robot/NNP sparks/VBZ conversations/NNS about/IN the/DT evolving/VBG relationship/NN between/IN humans/NNS and/CC AI/NNP in/IN real/JJ life/NN ./. How/WRB close/JJ are/VBP we/PRP to/TO creating/VBG sentient/JJ beings/NNS ?/.
+
+Record 10
+POS-tagged tokens: ``/`` Sonny/NN :/: I/PRP did/VBD not/RB murder/VB him/PRP !/. ''/''
+
+Record 11
+POS-tagged tokens: Sonny/NNP ,/, an/DT advanced/JJ robot/NN with/IN unique/JJ characteristics/NNS ,/, becomes/VBZ a/DT key/JJ figure/NN in/IN the/DT investigation/NN ./. His/PRP$ innocence/NN or/CC guilt/NN becomes/VBZ a/DT focal/JJ point/NN in/IN the/DT unfolding/JJ events/NNS ./.
+
+Record 12
+POS-tagged tokens: The/DT film/NN 's/POS ending/VBG leaves/NNS room/NN for/IN interpretation/NN ./. Some/DT viewers/NNS appreciate/VBP the/DT resolution/NN ,/, while/IN others/NNS speculate/VBP about/IN the/DT future/NN of/IN the/DT world/NN depicted/VBD in/IN I/PRP ,/, Robot/NNP ./.
