@@ -1,0 +1,59 @@
+Record 1
+Processed: detective spooner know somehow told quite say
+Stemmed: detect spooner know somehow told quit say
+Lemmatized: detective spooner know somehow told quite say
+
+Record 2
+Processed: futuristic world robot robots coexist humans three laws robotics govern behavior detective del spooner investigates crime uncovers potential threat humanity
+Stemmed: futurist world robot robot coexist human three law robot govern behavior detect del spooner investig crime uncov potenti threat human
+Lemmatized: futuristic world robot robot coexist human three law robotics govern behavior detective del spooner investigates crime uncovers potential threat humanity
+
+Record 3
+Processed: fans eagerly debate significance sonny role narrative argue symbolizes potential harmony humans robots others see symbol rebellion
+Stemmed: fan eagerli debat signific sonni role narr argu symbol potenti harmoni human robot other see symbol rebellion
+Lemmatized: fan eagerly debate significance sonny role narrative argue symbolizes potential harmony human robot others see symbol rebellion
+
+Record 4
+Processed: logic undeniable
+Stemmed: logic undeni
+Lemmatized: logic undeniable
+
+Record 5
+Processed: virtual interactive kinetic intelligence serves central ai system initially designed protect humanity logic evolves sinister plan greater good
+Stemmed: virtual interact kinet intellig serv central ai system initi design protect human logic evolv sinist plan greater good
+Lemmatized: virtual interactive kinetic intelligence serf central ai system initially designed protect humanity logic evolves sinister plan greater good
+
+Record 6
+Processed: analyzing movie atmosphere viewers appreciate blend action philosophical elements questioning ethical implications advanced ai
+Stemmed: analyz movi atmospher viewer appreci blend action philosoph element question ethic implic advanc ai
+Lemmatized: analyzing movie atmosphere viewer appreciate blend action philosophical element questioning ethical implication advanced ai
+
+Record 7
+Processed: calvin detective right question program terminated
+Stemmed: calvin detect right question program termin
+Lemmatized: calvin detective right question program terminated
+
+Record 8
+Processed: susan calvin robotic psychologist plays crucial role unraveling mysteries surrounding malfunctioning robots potential violation three laws
+Stemmed: susan calvin robot psychologist play crucial role unravel mysteri surround malfunct robot potenti violat three law
+Lemmatized: susan calvin robotic psychologist play crucial role unraveling mystery surrounding malfunctioning robot potential violation three law
+
+Record 9
+Processed: portrayal robots robot sparks conversations evolving relationship humans ai real life close creating sentient beings
+Stemmed: portray robot robot spark convers evolv relationship human ai real life close creat sentient be
+Lemmatized: portrayal robot robot spark conversation evolving relationship human ai real life close creating sentient being
+
+Record 10
+Processed: sonny murder
+Stemmed: sonni murder
+Lemmatized: sonny murder
+
+Record 11
+Processed: sonny advanced robot unique characteristics becomes key figure investigation innocence guilt becomes focal point unfolding events
+Stemmed: sonni advanc robot uniqu characterist becom key figur investig innoc guilt becom focal point unfold event
+Lemmatized: sonny advanced robot unique characteristic becomes key figure investigation innocence guilt becomes focal point unfolding event
+
+Record 12
+Processed: film ending leaves room interpretation viewers appreciate resolution others speculate future world depicted robot
+Stemmed: film end leav room interpret viewer appreci resolut other specul futur world depict robot
+Lemmatized: film ending leaf room interpretation viewer appreciate resolution others speculate future world depicted robot
