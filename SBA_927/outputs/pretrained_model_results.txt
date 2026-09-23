@@ -1,0 +1,66 @@
+Record 1
+Original text: "Detective Spooner: You know, somehow, 'I told you so' just doesn't quite say it."
+Predicted sentiment label: neutral
+Confidence score: 0.6039
+
+Record 2
+Original text: In the futuristic world of I, Robot, robots coexist with humans. The three laws of robotics govern their behavior, but as Detective Del Spooner investigates a crime, he uncovers a potential threat to humanity.
+Predicted sentiment label: neutral
+Confidence score: 0.8780
+
+Record 3
+Original text: Fans eagerly debate the significance of Sonny's role in the narrative. Some argue that he symbolizes the potential for harmony between humans and robots, while others see him as a symbol of rebellion.
+Predicted sentiment label: neutral
+Confidence score: 0.8411
+
+Record 4
+Original text: "V.I.K.I.: My logic is undeniable."
+Predicted sentiment label: positive
+Confidence score: 0.5408
+
+Record 5
+Original text: V.I.K.I. (Virtual Interactive Kinetic Intelligence) serves as the central AI system. Initially designed to protect humanity, her logic evolves into a more sinister plan for the greater good.
+Predicted sentiment label: neutral
+Confidence score: 0.7779
+
+Record 6
+Original text: Analyzing the movie's atmosphere, viewers appreciate the blend of action and philosophical elements, questioning the ethical implications of advanced AI.
+Predicted sentiment label: positive
+Confidence score: 0.5833
+
+Record 7
+Original text: "Dr. Calvin: That, Detective, is the right question. Program terminated."
+Predicted sentiment label: neutral
+Confidence score: 0.6572
+
+Record 8
+Original text: Dr. Susan Calvin, a robotic psychologist, plays a crucial role in unraveling the mysteries surrounding the malfunctioning robots and the potential violation of the three laws.
+Predicted sentiment label: neutral
+Confidence score: 0.8964
+
+Record 9
+Original text: The portrayal of robots in I, Robot sparks conversations about the evolving relationship between humans and AI in real life. How close are we to creating sentient beings?
+Predicted sentiment label: neutral
+Confidence score: 0.8079
+
+Record 10
+Original text: "Sonny: I did not murder him!"
+Predicted sentiment label: negative
+Confidence score: 0.4971
+
+Record 11
+Original text: Sonny, an advanced robot with unique characteristics, becomes a key figure in the investigation. His innocence or guilt becomes a focal point in the unfolding events.
+Predicted sentiment label: neutral
+Confidence score: 0.7946
+
+Record 12
+Original text: The film's ending leaves room for interpretation. Some viewers appreciate the resolution, while others speculate about the future of the world depicted in I, Robot.
+Predicted sentiment label: positive
+Confidence score: 0.5837
+
+Educational Observations
+- This sentiment model is pretrained.
+- It uses learned language patterns rather than VADER's lexicon and rules.
+- Confidence scores indicate how strongly the model favors each prediction.
+- Pretrained models can still make mistakes or interpret context differently from VADER.
+- Model predictions should be evaluated rather than assumed to be correct.
