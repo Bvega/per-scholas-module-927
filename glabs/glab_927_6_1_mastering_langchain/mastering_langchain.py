@@ -1,235 +1,189 @@
-"""
-=============================================================================
-GLAB 927.6.1 - Mastering LangChain for Advanced Language Model Applications
-=============================================================================
-Course: Per Scholas - CAX-215 | Module 927: NLP & LangChain
-Student: Bolivar Vega
+"""GLAB 927.6.1: grounded customer-support chains.
 
-This script implements the four core tasks of GLAB 927.6.1:
-  - Task 1: Retrieving and Configuring the Groq API Key
-  - Task 2: Setting Up LangChain and LangChain-Groq (Basic FAQ Prompt Chain)
-  - Task 3: Creating Advanced Sequential Prompt Chains (Extract -> Retrieve -> Respond)
-  - Task 4: Optimizing and Evaluating Workflows (Refined Prompts & Multi-query Evaluation)
-=============================================================================
+Submit this single file. Install langchain-core, langchain-groq, python-dotenv,
+then place GROQ_API_KEY in a local .env beside this script. Never submit .env.
+Run `python mastering_langchain.py --offline` to inspect the mock workflow
+without an API key or model call; run without the flag to exercise ChatGroq.
+
+All records below are fictional, fixed lab examples. A match verifies only
+that the value occurs in this sample database, not in a real order system.
 """
 
+from __future__ import annotations
+
+import argparse
 import os
-import sys
-from dotenv import load_dotenv
-
-# Ensure UTF-8 output encoding for terminal printing
-sys.stdout.reconfigure(encoding='utf-8')
-
-# ---------------------------------------------------------------------------
-# Task 1: Retrieving & Configuring the Groq API Key
-# ---------------------------------------------------------------------------
-print("=" * 70)
-print("TASK 1: Retrieving and Configuring the Groq API Key")
-print("=" * 70)
-
-# Load environment variables from local .env file
-script_dir = os.path.dirname(os.path.abspath(__file__))
-env_path = os.path.join(script_dir, ".env")
-load_dotenv(env_path)
-
-groq_api_key = os.environ.get("GROQ_API_KEY")
-if not groq_api_key:
-    raise ValueError("GROQ_API_KEY is missing! Please set it in .env or your environment.")
-
-# Mask key for secure terminal verification
-masked_key = groq_api_key[:8] + "..." + groq_api_key[-4:]
-print(f"[OK] Groq API Key configured successfully: {masked_key}")
-
-# Initialize the Groq model
-# Note: Groq recently decommissioned 'llama3-8b-8192'. We dynamically select
-# the recommended active model (openai/gpt-oss-20b or qwen/qwen3.8-27b) with graceful fallback.
-from langchain_groq import ChatGroq
-from langchain_core.prompts import PromptTemplate
-from langchain_core.output_parsers import StrOutputParser
-
-MODEL_NAME = "openai/gpt-oss-20b"
-
-try:
-    llm = ChatGroq(model=MODEL_NAME, temperature=0.2)
-    print(f"[OK] LangChain ChatGroq initialized with model: '{MODEL_NAME}'\n")
-except Exception as e:
-    # Fallback to qwen if needed
-    MODEL_NAME = "qwen/qwen3.8-27b"
-    llm = ChatGroq(model=MODEL_NAME, temperature=0.2)
-    print(f"[Fallback] Initialized with fallback model: '{MODEL_NAME}'\n")
+import re
+from pathlib import Path
 
 
-# ---------------------------------------------------------------------------
-# Task 2: Setting Up LangChain and LangChain-Groq (Basic FAQ Prompt Chain)
-# ---------------------------------------------------------------------------
-print("=" * 70)
-print("TASK 2: Basic FAQ Customer Support Prompt Chain")
-print("=" * 70)
-print("Scenario: Automating common FAQ responses (e.g., business hours, return policies).\n")
-
-messages = [
-    ("system", "You are a helpful customer support representative. Your goal is to efficiently handle queries."),
-    ("human", "What are your business hours?")
-]
-
-print("User Query: 'What are your business hours?'")
-result = llm.invoke(messages)
-print("\n[AI Support Response]:")
-print(result.content.strip())
-print("-" * 70)
-
-# Additional FAQ test: Return Policy
-faq_query_2 = "What is your return policy?"
-print(f"\nUser Query: '{faq_query_2}'")
-faq_messages_2 = [
-    ("system", "You are a customer support representative. Your goal is to efficiently handle queries with polite, concise information."),
-    ("human", faq_query_2)
-]
-result_2 = llm.invoke(faq_messages_2)
-print("\n[AI Support Response]:")
-print(result_2.content.strip())
-print("\n")
-
-
-# ---------------------------------------------------------------------------
-# Task 3: Creating Advanced Multi-Stage Prompt Chains
-# ---------------------------------------------------------------------------
-print("=" * 70)
-print("TASK 3: Advanced Multi-Stage Prompt Chains (Sequential Pipeline)")
-print("=" * 70)
-print("Scenario: Handling complex queries via multi-step processing:")
-print("  Step 1: Extract key query information (order #, dates, intent)")
-print("  Step 2: Retrieve relevant order details based on extracted information")
-print("  Step 3: Generate a comprehensive, empathetic customer response\n")
-
-# Step 1: Prompt Template for Information Extraction
-first_prompt_template = PromptTemplate(
-    input_variables=["customer_query"],
-    template="Extract the key information from the following customer query: {customer_query}"
-)
-
-# Step 2: Prompt Template for Data Retrieval Simulation
-second_prompt_template = PromptTemplate(
-    input_variables=["extracted_info"],
-    template="Using the extracted information: {extracted_info}, retrieve the relevant order details."
-)
-
-# Step 3: Prompt Template for Customer Response Generation
-third_prompt_template = PromptTemplate(
-    input_variables=["order_details"],
-    template="Based on the following order details: {order_details}, generate a detailed response to address the customer's query."
-)
-
-# Build LangChain pipeline chains (compatible with LangChain 1.x LCEL)
-output_parser = StrOutputParser()
-first_chain = first_prompt_template | llm | output_parser
-second_chain = second_prompt_template | llm | output_parser
-third_chain = third_prompt_template | llm | output_parser
-
-# Initial input from the Per Scholas lab prompt
-initial_input = "Can you help me with the status of my order #12345 placed last week?"
-print(f"Initial Customer Query:\n  \"{initial_input}\"\n")
-
-# Execute Stage 1
-print(">>> Executing Stage 1: Key Information Extraction...")
-extracted_info = first_chain.invoke({"customer_query": initial_input})
-print(f"Extracted Info:\n{extracted_info.strip()}\n")
-
-# Execute Stage 2
-print(">>> Executing Stage 2: Order Details Retrieval...")
-order_details = second_chain.invoke({"extracted_info": extracted_info})
-print(f"Order Details:\n{order_details.strip()}\n")
-
-# Execute Stage 3
-print(">>> Executing Stage 3: Customer Response Generation...")
-customer_response = third_chain.invoke({"order_details": order_details})
-print(f"Customer Response:\n{customer_response.strip()}\n")
-
-
-# ---------------------------------------------------------------------------
-# Task 4: Optimizing and Evaluating Workflows
-# ---------------------------------------------------------------------------
-print("=" * 70)
-print("TASK 4: Optimizing and Evaluating Workflows")
-print("=" * 70)
-print("Refining prompts with explicit persona, output structure, and grounding guardrails.\n")
-
-# Optimized Prompt 1: Structured JSON/bullet extraction with entity validation
-optimized_prompt_1 = PromptTemplate(
-    input_variables=["customer_query"],
-    template="""You are an expert customer data parser for an e-commerce platform.
-Analyze the customer query and extract the following structured entities:
-- Order ID (or 'Not Provided')
-- Issue/Intent Category (e.g., Order Status, Return, Cancellation, Defect)
-- Timeframe/Date mentioned
-- Specific Customer Sentiment / Urgency
-
-Customer Query:
-"{customer_query}"
-
-Output the extracted entities clearly in bullet points."""
-)
-
-# Optimized Prompt 2: Contextualized Database Lookup Simulation
-optimized_prompt_2 = PromptTemplate(
-    input_variables=["extracted_info"],
-    template="""You are a database integration agent for customer support.
-Based on the extracted query details:
-{extracted_info}
-
-Simulate a realistic database lookup from our inventory and shipping systems. Include:
-- Current Order Status (e.g., Shipped, In Transit, Processing)
-- Tracking Number & Carrier
-- Estimated Delivery Date
-- Items in Order
-- Any relevant fulfillment notes or delays."""
-)
-
-# Optimized Prompt 3: Professional, Empathetic Customer Communication
-optimized_prompt_3 = PromptTemplate(
-    input_variables=["order_details"],
-    template="""You are an elite Customer Success representative for NovaStore.
-Review the following verified order details from our system:
-{order_details}
-
-Draft a warm, professional, and clear response to the customer.
-Guidelines:
-1. Greet the customer courteously.
-2. Directly answer their query with the exact order status and estimated arrival date.
-3. Provide the tracking link/carrier info so they can track the package in real-time.
-4. Offer proactive assistance in case they need anything further.
-5. Close with a polite sign-off."""
-)
-
-# Build optimized chains
-opt_chain_1 = optimized_prompt_1 | llm | output_parser
-opt_chain_2 = optimized_prompt_2 | llm | output_parser
-opt_chain_3 = optimized_prompt_3 | llm | output_parser
-
-# Evaluation across 2 diverse test queries
-eval_queries = [
-    {
-        "id": "Query A (Standard Status)",
-        "query": "Hi, I ordered a mechanical keyboard last Friday under order #78901 and haven't seen an update. When will it arrive?"
+# Task 1: sample source of truth. Unknown fields stay unknown.
+MOCK_ORDERS = {
+    "12345": {
+        "item": None,
+        "status": "Processing",
+        "carrier": None,
+        "tracking_number": None,
+        "delivery_date": None,
     },
-    {
-        "id": "Query B (Damaged Goods / Urgent Resolution)",
-        "query": "Order #44512 arrived yesterday but the screen is completely cracked! I need a replacement or refund immediately for my work."
-    }
-]
+    "78901": {
+        "item": "Mechanical keyboard",
+        "status": "In transit",
+        "carrier": None,
+        "tracking_number": None,
+        "delivery_date": None,
+    },
+    "44512": {
+        "item": "Smartphone",
+        "status": "Delivered",
+        "carrier": None,
+        "tracking_number": None,
+        "delivery_date": None,
+    },
+}
 
-for test in eval_queries:
-    print(f"\n--- Evaluating Workflow: {test['id']} ---")
-    print(f"Customer Input: \"{test['query']}\"")
-    
-    e_info = opt_chain_1.invoke({"customer_query": test["query"]})
-    print(f"\n[Optimized Stage 1 - Structured Extraction]:\n{e_info.strip()}")
-    
-    o_data = opt_chain_2.invoke({"extracted_info": e_info})
-    print(f"\n[Optimized Stage 2 - System Order Retrieval]:\n{o_data.strip()}")
-    
-    c_reply = opt_chain_3.invoke({"order_details": o_data})
-    print(f"\n[Optimized Stage 3 - Final Empathetic Support Reply]:\n{c_reply.strip()}")
-    print("=" * 70)
+FAQ_ANSWERS = {
+    "HOURS": "Business hours are not available in the sample data. Please contact a support representative to confirm them.",
+    "RETURNS": "The return policy is not available in the sample data. Please contact a support representative to confirm it.",
+}
 
-print("\n[SUCCESS] All tasks for GLAB 927.6.1 executed and validated successfully!")
+ORDER_ID = re.compile(r"\b(?:order\s*(?:number|no\.?|id)?\s*#?\s*|#)(\d{5})\b", re.I)
+DAMAGE = re.compile(r"\b(damag\w*|crack\w*|broken|defective)\b", re.I)
+
+
+def extract_request(query: str) -> dict[str, object]:
+    """Stage 1: extract an explicit order ID without asking a model to guess."""
+    match = ORDER_ID.search(query)
+    return {"order_id": match.group(1) if match else None,
+            "damage_reported": bool(DAMAGE.search(query))}
+
+
+def lookup_order(request: dict[str, object]) -> dict[str, object]:
+    """Stage 2: retrieve a real row from the fixed mock database."""
+    order_id = request["order_id"]
+    return {**request, "record": MOCK_ORDERS.get(order_id) if order_id else None}
+
+
+def render_response(result: dict[str, object]) -> str:
+    """Stage 3: assemble the customer reply from recorded facts only."""
+    order_id = result["order_id"]
+    record = result["record"]
+    if order_id is None:
+        return "Please provide your order number so I can check the sample records."
+    if record is None:
+        return (f"I cannot verify order #{order_id} in the sample records. "
+                "Please contact a support representative to check the order system.")
+
+    lines = [f"Sample record for order #{order_id}: status is {record['status']}."]
+    if record["item"]:
+        lines.append(f"Item: {record['item']}.")
+    if record["carrier"]:
+        lines.append(f"Carrier: {record['carrier']}.")
+    if record["tracking_number"]:
+        lines.append(f"Tracking number: {record['tracking_number']}.")
+    if record["delivery_date"]:
+        lines.append(f"Recorded delivery date: {record['delivery_date']}.")
+    if result["damage_reported"]:
+        lines.append("I understand you reported damage. The sample record does not confirm damage, a refund, or a replacement. Please contact support for review.")
+    if record["delivery_date"] is None:
+        lines.append("A delivery date cannot be verified from the sample record.")
+    return " ".join(lines)
+
+
+def respond_to_order(query: str) -> str:
+    """Standard-library path for reproducible offline validation."""
+    return render_response(lookup_order(extract_request(query)))
+
+
+def faq_label(question: str) -> str | None:
+    """Conservative routing; an unfamiliar question has no approved answer."""
+    q = question.lower()
+    if "hour" in q and "return" not in q:
+        return "HOURS"
+    if "return" in q and "hour" not in q:
+        return "RETURNS"
+    return None
+
+
+def run_faq_chain(question: str, llm: object) -> str:
+    """Task 2: prompt -> ChatGroq -> parser, gated by an approved answer."""
+    from langchain_core.output_parsers import StrOutputParser
+    from langchain_core.prompts import ChatPromptTemplate
+
+    label = faq_label(question)
+    if label is None:
+        return "I cannot verify an answer from the sample data. Please contact support."
+    approved = FAQ_ANSWERS[label]
+    prompt = ChatPromptTemplate.from_messages([
+        ("system", "Return precisely the supplied approved response, with no additions or changes: {approved}"),
+        ("human", "Customer question: {question}"),
+    ])
+    faq_chain = prompt | llm | StrOutputParser()
+    draft = faq_chain.invoke({"approved": approved, "question": question})
+    # Only the exact approved text can reach the customer. The fallback is safe.
+    return draft if draft.strip() == approved else approved
+
+
+def run_order_chain(query: str) -> str:
+    """Tasks 3-4: LangChain LCEL extraction -> lookup -> grounded response."""
+    from langchain_core.runnables import RunnableLambda
+
+    chain = (RunnableLambda(extract_request) | RunnableLambda(lookup_order)
+             | RunnableLambda(render_response))
+    return chain.invoke(query)
+
+
+def validate_offline() -> None:
+    """Check known, unknown, and reported-damage cases without a model."""
+    status = respond_to_order("Status of order #78901? When will it arrive?")
+    damage = respond_to_order("Order #44512 arrived with a cracked screen; refund?")
+    missing = respond_to_order("Where is order #99999? Is it arriving tomorrow?")
+    no_id = respond_to_order("Where is my order?")
+    assert "In transit" in status and "delivery date cannot be verified" in status
+    assert "tracking number:" not in status.lower()
+    assert "reported damage" in damage and "does not confirm damage" in damage
+    assert "cannot verify order #99999" in missing
+    assert "provide your order number" in no_id
+    print("Offline checks passed: known order, reported damage, missing order, missing ID.")
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--offline", action="store_true", help="run without Groq or LangChain")
+    args = parser.parse_args()
+    validate_offline()
+
+    if not args.offline:
+        try:
+            from dotenv import load_dotenv
+            from langchain_groq import ChatGroq
+            from langchain_core.runnables import RunnableLambda  # noqa: F401
+        except ImportError as exc:
+            parser.error(f"Install langchain-core langchain-groq python-dotenv ({exc.name} missing).")
+        load_dotenv(Path(__file__).with_name(".env"))
+        if not os.getenv("GROQ_API_KEY"):
+            parser.error("Set GROQ_API_KEY in a local .env next to this file.")
+        llm = ChatGroq(model="openai/gpt-oss-20b", temperature=0)
+        print("Groq API key loaded; key value is never displayed.")
+        print("FAQ:", run_faq_chain("What are your business hours?", llm))
+
+    print("\nOrder scenarios (fictional sample records):")
+    for query in (
+        "Can you check my order #12345?",
+        "I ordered a mechanical keyboard under order #78901. When will it arrive?",
+        "Order #44512 arrived with a cracked screen. I need a replacement or refund.",
+        "What is the status of order #99999?",
+        "Where is my order?",
+    ):
+        reply = respond_to_order(query) if args.offline else run_order_chain(query)
+        print(f"Customer: {query}\nSupport: {reply}\n")
+
+    print("Original vs optimized (original findings are from the prior lab record):")
+    print("Accuracy: original invented order fields; optimized reads only fixed sample records.")
+    print("Clarity: original said fabricated values were verified; optimized labels sample data and uncertainty.")
+    print("Relevance: both address status and damage; optimized requests support review for unconfirmed damage.")
+    print("Hallucination risk: original model generated order facts; optimized code never lets model output supply order facts.")
+
+
+if __name__ == "__main__":
+    main()
